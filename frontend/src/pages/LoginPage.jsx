@@ -48,7 +48,7 @@ export default function LoginPage() {
       {/* Left decorative panel */}
       <div className="login-deco">
         <div className="login-deco__content">
-          <div className="login-deco__icon"><img src={logo} alt="Jing-Jing Store Logo" className="login-deco__logo"/> </div>
+          <div className="login-deco__icon"><img src={logo} alt="One Hotel Avenue Logo" className="login-deco__logo"/> </div>
           <p className="login-deco__sub">Simple. Fast. Yours.</p>
         </div>
       </div>

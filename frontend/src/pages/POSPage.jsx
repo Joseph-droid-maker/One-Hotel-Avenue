@@ -138,7 +138,7 @@ function ReceiptModal({ transaction, onClose }) {
     >
       <div id="receipt-print" ref={receiptRef} className={`receipt receipt--${mode}`}>
         <div className="receipt__head">
-          <p className="receipt__store">Jing-Jing Store</p>
+          <p className="receipt__store">One Hotel Avenue</p>
           <p className="receipt__date">
             {d.toLocaleDateString('en-PH')} {d.toLocaleTimeString('en-PH', {hour:'2-digit',minute:'2-digit'})}
           </p>

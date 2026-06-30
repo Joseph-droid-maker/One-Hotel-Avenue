@@ -1,37 +1,101 @@
 :root {
+  /* ============================================================
+     ONE AVENUE HOTEL palette — v2, "Charcoal & Lime".
+     Replaces the v1 olive-bronze/khaki direction per explicit
+     feedback that it didn't land. Same sourcing discipline as v1:
+     every value sampled from the logo's pixels, then re-tuned per
+     UI role, then checked against WCAG AA (4.5:1 small text /
+     3:1 large bold text) for every real pairing this file uses —
+     not just the obvious ones.
+     ============================================================ */
 
-  --bg:        #F8FAFC;       
-  --bg2:       #EEF2F7;       
+  --bg:        #FBF8F2;
+  --bg2:       #F4EEE2;
 
-  --surface:   #FFFFFF;      
-  --surface2:  #F8FAFC;      
+  --surface:   #FFFFFF;
+  --surface2:  #FBF8F2;
 
-  --primary:   #1F3553;     
-  --primary-h: #0b1729;      
-  --primary-l: #D6E4F0;      
-  --primary-m: #EEF4FB;     
+  /* Primary = charcoal, sampled from the logo's ring + wordmark stroke,
+     darkened toward true near-black-olive rather than the lighter
+     olive-bronze v1 used. This is now a much higher-contrast, more
+     "dark-mode-SaaS" foundation — sidebar, headers, primary buttons,
+     focus rings, gradients all key off this. */
+  --primary:    #2B2A22;
+  --primary-h:  #1C1B16;       /* hover/pressed */
+  --primary-l:  #E2E0D5;       /* pale tint — selected-row backgrounds */
+  --primary-m:  #F2F0E7;       /* faint tint — hover backgrounds */
+  --primary-rgb: 43, 42, 34;   /* lets rgba(var(--primary-rgb), X) replace the
+                                  rgba(31,53,83,.30) that was STILL hardcoded
+                                  in .btn-primary:hover — a literal leftover
+                                  of the original navy theme that survived the
+                                  v1 pass untouched. See diff notes below. */
 
-  --gold:      #D9BE63;      
-  --gold-h:    #C9A63B;       
-  --gold-l:    #FAF5DC;       
-  --gold-m:    #FDF9EC;      
+  /* Lime = the logo's small chartreuse emblem square. In v1 this color
+     was deliberately left unused, reasoning that promoting a tiny accent
+     swatch to a major UI role would look cartoonish. That reasoning doesn't
+     hold once lime is the chosen direction rather than an afterthought —
+     it now does everything --gold did in v1: active-nav indicator, primary
+     CTA, and the one "hero number" stat highlight. The dark text-on-light
+     variant (--lime-d) is deliberately desaturated toward deep olive rather
+     than just darkened, so small label text (category tags, receipt codes)
+     reads as a muted brand tint instead of looking like a dimmed neon sign —
+     verified it's still the same ~64° hue angle as the bright --lime, just
+     lower lightness, not a different color. */
+  --lime:      #DCE614;        /* light-on-dark text, CTA gradient start */
+  --lime-h:    #C7D012;        /* CTA gradient end-stop */
+  --lime-hh:   #AEB710;        /* CTA hover, one step past --lime-h */
+  --lime-d:    #565C0F;        /* dark-on-light text — badges, codes, tags */
+  --lime-l:    #F3F5D9;        /* pale tint — badge backgrounds */
+  --lime-m:    #F8FAEA;        /* paler tint — badge backgrounds */
+  --lime-rgb:  220, 230, 20;   /* opacity-based uses: sidebar hairlines, login
+                                  decoration, CTA glow, active-nav bg tint */
 
-  --text:      #0F172A;       
-  --text2:     #334155;       
-  --text3:     #64748B;     
+  /* Accent = the logo's magenta emblem square. Still genuinely unused in any
+     live component — same as v1 — because nothing in the current markup has
+     a natural slot for a third UI color (e.g. a "new item" badge) without
+     adding new elements, which is out of scope for a palette-only pass.
+     Kept defined because it's a real, sampled brand color and worth having
+     on hand. It no longer powers --sb-act (see below) — lime owns the
+     "this is selected" signal now, so the active-state tint, active-state
+     text, and active-state CTA all read as one consistent color language
+     instead of two competing accents. */
+  --accent:    #B8005C;
+  --accent-h:  #8C0046;
+  --accent-l:  #F7DCEA;
 
-  --border:    #E2E8F0;      
-  --border-l:  #F1F5F9;       
+  --text:      #20180A;
+  --text2:     #4A4232;
+  --text3:     #6E6450;
+  --text-rgb:  32, 24, 10;     /* lets rgba(var(--text-rgb), X) replace FOUR
+                                  separate hardcoded rgba(15,23,42, ..) literals
+                                  — the original cool navy-black — still sitting
+                                  in the topbar shadow and three different modal/
+                                  drawer backdrop scrims. Same bug class as
+                                  --primary-rgb above: v1 retheme touched colors,
+                                  not every rgba() literal that happened to
+                                  encode a color. */
 
-  --ok:        #1E7040; --ok-bg:   #D4F0E0;
+  --border:    #E8E1D2;
+  --border-l:  #F2EDE0;
+
+  /* Semantic state colors unchanged from v1 and for the same reason: a
+     cashier needs to recognize error/warning/success instantly, and that
+     recognition depends on conventional red/amber/green, not brand color. */
+  --ok:        #487030; --ok-bg:   #E7F0DC;
   --err:       #B83030; --err-bg:  #FDEAEA;
   --warn:      #B07808; --warn-bg: #FEF5D6;
   --info:      #1A58A0; --info-bg: #E5EFFD;
 
-  --sb:        #1F3553;                   
-  --sb-t:      #F8FAFC;                   
-  --sb-m:      #94A3B8;                   
-  --sb-act:    rgba(217, 190, 99, 0.12);   
+  --sb:        var(--primary);  /* was a literal hex duplicate of --primary in
+                                    v1 — now a direct reference, one source of
+                                    truth instead of two values that have to be
+                                    kept in sync by hand. */
+  --sb-t:      #FBF8F2;
+  --sb-m:      #B0A88E;
+  --sb-act:    rgba(var(--lime-rgb), 0.16);  /* was magenta in v1; now lime, so
+                                                 hover bg tint + active text +
+                                                 active inset bar + the Charge
+                                                 button all share one accent. */
   --sb-w:      220px;
   --sb-w-collapsed: 72px;
   --sb-w-hidden: -240px;
@@ -40,9 +104,9 @@
   --r-l:       14px;
   --r-xl:      22px;
 
-  --sh:        0 1px 3px rgba(15,23,42,.06), 0 2px 8px rgba(15,23,42,.04);
-  --sh-m:      0 4px 20px rgba(15,23,42,.08);
-  --sh-l:      0 12px 40px rgba(15,23,42,.14);
+  --sh:        0 1px 3px rgba(var(--text-rgb),.06), 0 2px 8px rgba(var(--text-rgb),.04);
+  --sh-m:      0 4px 20px rgba(var(--text-rgb),.08);
+  --sh-l:      0 12px 40px rgba(var(--text-rgb),.14);
 
   --t:         140ms ease;
 }
@@ -159,7 +223,7 @@ h3 {
 .sidebar {
   width: var(--sb-w); flex-shrink: 0;
   background: var(--sb);
-  border-right: 1px solid rgba(217, 190, 99, .10); 
+  border-right: 1px solid rgba(var(--lime-rgb), .10); 
   display: flex; flex-direction: column;
   overflow: hidden;
 }
@@ -167,7 +231,7 @@ h3 {
 .sidebar__brand {
   display: flex; align-items: center; gap: 10px;
   padding: 20px 16px 18px;
-  border-bottom: 1px solid rgba(217, 190, 99, .14);
+  border-bottom: 1px solid rgba(var(--lime-rgb), .14);
 }
 
 .sidebar__logo {
@@ -205,8 +269,8 @@ h3 {
 
 .sidebar__link--active {
   background: var(--sb-act);
-  color: var(--gold);
-  box-shadow: inset 3px 0 0 var(--gold);
+  color: var(--lime);
+  box-shadow: inset 3px 0 0 var(--lime);
 }
 .sidebar__icon { 
   font-size: 16px; 
@@ -245,12 +309,12 @@ h3 {
   padding: 0 22px;
   background: var(--surface);
   border-bottom: 1.5px solid var(--border);
-  box-shadow: 0 1px 0 rgba(15,23,42,.04);
+  box-shadow: 0 1px 0 rgba(var(--text-rgb),.04);
 }
 
 .topbar__store {
   font-family: 'Sora', sans-serif; font-weight: 700;
-  font-size: 15px; color: var(--primary); /* Navy store name */
+  font-size: 15px; color: var(--primary); /* store name, brand-ink color */
 }
 
 .topbar__user { 
@@ -264,7 +328,7 @@ h3 {
 .topbar__avatar {
   width: 32px; height: 32px; border-radius: 50%;
   background: var(--primary);
-  color: var(--gold);
+  color: #fff;   /* deliberately NOT --lime — see user-avatar below for why */
   display: flex; align-items: center; justify-content: center;
   font-weight: 700; font-size: 14px;
 }
@@ -320,7 +384,7 @@ h3 {
 
 .btn-primary:hover:not(:disabled) {
   background: var(--primary-h);
-  box-shadow: 0 2px 12px rgba(31,53,83,.30);
+  box-shadow: 0 2px 12px rgba(var(--primary-rgb),.30);
 }
 
 .btn-danger { 
@@ -463,8 +527,8 @@ select.input {
 }
 
 .badge--cat    { 
-  background: var(--gold-m);   
-   color: var(--gold-h); 
+  background: var(--lime-m);   
+   color: var(--lime-d); 
 }
 
 .badge--role   { 
@@ -497,7 +561,7 @@ select.input {
 }
 
 .stat-card--primary .stat-card__val   { 
-  color: var(--gold); 
+  color: var(--lime); 
 }
 
 .stat-card--primary .stat-card__label { 
@@ -617,8 +681,8 @@ select.input {
 
 .txn-code {
   font-family: 'DM Mono', monospace; font-size: 12px;
-  background: var(--gold-m); padding: 2px 7px;
-  border-radius: 4px; color: var(--gold-h);
+  background: var(--lime-m); padding: 2px 7px;
+  border-radius: 4px; color: var(--lime-d);
 }
 
 .price-mono   { 
@@ -642,7 +706,16 @@ select.input {
 .user-avatar {
   width: 34px; height: 32px; border-radius: 50%;
   background: var(--primary);
-  color: var(--gold);
+  color: #fff;   /* deliberately NOT --lime. Every other former-gold spot got a
+                    straight rename, but avatar initials are the one place that
+                    doesn't get to keep it: lime is meant to mean "active /
+                    actionable" (nav indicator, Charge button, hero stat number).
+                    A lime letter inside every single avatar circle, on every
+                    table row, would dilute that signal into background noise
+                    and start to look busy. Plain white-on-charcoal is the
+                    cleaner, more conventional choice for avatar fallbacks
+                    anyway — matches how .btn-primary and .cat-pill--on already
+                    use literal #fff rather than the accent token. */
   display: flex; align-items: center; justify-content: center;
   font-weight: 700; font-size: 14px; flex-shrink: 0;
 }
@@ -661,7 +734,7 @@ select.input {
 
 .modal-backdrop {
   position: fixed; inset: 0; z-index: 900;
-  background: rgba(15, 23, 42, .55);
+  background: rgba(var(--text-rgb), .55);
   backdrop-filter: blur(3px);
   display: flex; align-items: center; justify-content: center;
   padding: 16px; animation: fadeIn 150ms ease;
@@ -761,7 +834,7 @@ select.input {
   content: '';
   position: absolute;
   width: 420px; height: 420px; border-radius: 50%;
-  border: 60px solid rgba(217, 190, 99, .07);
+  border: 60px solid rgba(var(--lime-rgb), .07);
   top: -80px; right: -100px;
   pointer-events: none;
 }
@@ -770,7 +843,7 @@ select.input {
   content: '';
   position: absolute;
   width: 260px; height: 260px; border-radius: 50%;
-  border: 40px solid rgba(217, 190, 99, .09);
+  border: 40px solid rgba(var(--lime-rgb), .09);
   bottom: -60px; left: -60px;
   pointer-events: none;
 }
@@ -805,7 +878,7 @@ select.input {
 
 .login-deco__sub {
   font-size: 15px; letter-spacing: .10em; text-transform: uppercase;
-  color: var(--gold); font-weight: 600;
+  color: var(--lime); font-weight: 600;
 }
 
 .login-form-panel { 
@@ -923,7 +996,7 @@ select.input {
 
 .cat-drawer__backdrop {
   position: fixed; inset: 0; z-index: 500;
-  background: rgba(15, 23, 42, 0.35);   /* Match modal scrim tone */
+  background: rgba(var(--text-rgb), 0.35);   /* Match modal scrim tone */
   backdrop-filter: blur(1px);
   animation: backdrop-fade-in 180ms ease;
 }
@@ -1120,7 +1193,7 @@ select.input {
 
 .product-card__cat   { 
   font-size: 10px; 
-  color: var(--gold-h); 
+  color: var(--lime-d); 
   font-weight: 600; 
   text-transform: uppercase; 
   letter-spacing: .04em; 
@@ -1320,7 +1393,7 @@ select.input {
   border: none;
   border-radius: var(--r-l);
 
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-h) 100%);
+  background: linear-gradient(135deg, var(--lime) 0%, var(--lime-h) 100%);
   color: var(--primary-h);
 
   font-family: 'Sora', sans-serif;
@@ -1338,8 +1411,8 @@ select.input {
 }
 
 .btn-charge:hover:not(:disabled) {
-  background: linear-gradient(135deg, var(--gold-h) 0%, #B8902F 100%);
-  box-shadow: 0 4px 18px rgba(217, 190, 99, .45);
+  background: linear-gradient(135deg, var(--lime-h) 0%, var(--lime-hh) 100%);
+  box-shadow: 0 4px 18px rgba(var(--lime-rgb), .45);
   transform: translateY(-1px);
 }
 
@@ -1381,7 +1454,7 @@ select.input {
   font-size: 12px; 
   font-weight: 600; 
   margin: 4px 0; 
-  color: var(--gold-h); 
+  color: var(--lime-d); 
 }
 
 .receipt__divider  { 
@@ -1490,7 +1563,7 @@ select.input {
 .rank-badge {
   display: inline-flex; align-items: center; justify-content: center;
   width: 22px; height: 22px; border-radius: 50%;
-  background: var(--gold-l); color: var(--gold-h);
+  background: var(--lime-l); color: var(--lime-d);
   font-size: 11px; font-weight: 700;
 }
 
@@ -1539,7 +1612,7 @@ select.input {
   margin-top: 12px; padding: 12px 14px;
   background: var(--primary-m);
   border-radius: var(--r);
-  border-left: 3px solid var(--primary); /* Navy accent stripe */
+  border-left: 3px solid var(--primary); /* brand-ink accent stripe */
   display: flex; flex-direction: column; gap: 6px;
 }
 
@@ -1616,7 +1689,7 @@ select.input {
 
   .sidebar-overlay {
     position: fixed; inset: 0;
-    background: rgba(15, 23, 42, .55);
+    background: rgba(var(--text-rgb), .55);
     z-index: 905;
     animation: fadeIn 0.2s ease;
   }
@@ -1675,4 +1748,3 @@ select.input {
   .sidebar__close    { display: none; }
   .sidebar-overlay   { display: none !important; }
 }
-

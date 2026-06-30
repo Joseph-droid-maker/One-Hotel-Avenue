@@ -1,4 +1,4 @@
-const BASE = '/Jing-Jing-Store/backend/api';
+const BASE = '/One-Hotel-Avenue/backend/api';
 
 async function request(path, opts = {}) {
   const isFormData = opts.body instanceof FormData;
@@ -37,7 +37,7 @@ export const api = {
 // Helper: build image URL from relative path stored in DB
 export function imgUrl(path) {
   if (!path) return null;
-  return `/Jing-Jing-Store/backend/${path}`;
+  return `/One-Hotel-Avenue/backend/${path}`;
 }
 
 // Helper: Philippine peso format

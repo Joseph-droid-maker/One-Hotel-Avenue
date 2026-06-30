@@ -3,12 +3,12 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-   //base: '/Jing-Jing-Store/',  
+   //base: '/One-Hotel-Avenue/',  
 
 
   server: {
     proxy: {
-      '/Jing-Jing-Store': {
+      '/One-Hotel-Avenue': {
         target: 'http://localhost',
         changeOrigin: true,
       },

@@ -30,13 +30,13 @@ export default function App() {
             fontFamily: "'Plus Jakarta Sans', sans-serif",
             fontSize: '14px',
             borderRadius: '10px',
-            boxShadow: '0 4px 20px rgba(80,55,15,0.15)',
+            boxShadow: '0 4px 20px rgba(32,24,10,0.15)',
           },
-          success: { iconTheme: { primary: '#227040', secondary: '#fff' } },
-          error:   { iconTheme: { primary: '#B83030', secondary: '#fff' } },
+          success: { iconTheme: { primary: 'var(--ok)', secondary: '#fff' } },
+          error:   { iconTheme: { primary: 'var(--err)', secondary: '#fff' } },
         }}
       />
-      {/* basename="/Jing-Jing-Store" */}
+      {/* basename="/One-Hotel-Avenue" */}
       <BrowserRouter  >
         <Routes>
      

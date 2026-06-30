@@ -18,7 +18,7 @@ async function exportPDF(title, headers, rows, summaryRows = []) {
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(16);
   doc.setFont('helvetica', 'bold');
-  doc.text('JING-JING STORE', 14, 12);
+  doc.text('One Hotel Avenue', 14, 12);
 
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
@@ -44,7 +44,7 @@ async function exportPDF(title, headers, rows, summaryRows = []) {
       doc.setFontSize(8);
       doc.setTextColor(100, 116, 139);
       doc.text(
-        `Page ${data.pageNumber} of ${pageCount}  ·  Jing-Jing Store  ·  Confidential`,
+        `Page ${data.pageNumber} of ${pageCount}  ·  One Hotel Avenue ·  Confidential`,
         14, doc.internal.pageSize.height - 10
       );
     },

@@ -30,7 +30,7 @@ export default function Layout() {
             >
               <i className="fi fi-sr-menu-burger"></i>
             </button>
-            <span className="topbar__store">Jing-Jing Store</span>
+            <span className="topbar__store">One Hotel Avenue</span>
           </div>
 
           <div className="topbar__right">

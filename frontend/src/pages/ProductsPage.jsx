@@ -134,7 +134,7 @@ function ImportModal({ onClose }) {
     XLSX.utils.book_append_sheet(wb, ws, 'Products');
  
     // writeFile() triggers the browser's Save As dialog automatically
-    XLSX.writeFile(wb, 'Jing-Jing_template.xlsx');
+    XLSX.writeFile(wb, 'One_Hotel_Avenue_template.xlsx');
   };
  
   /**
